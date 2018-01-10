@@ -1,0 +1,14 @@
+---
+title: "seminar 2b"
+output: html_document
+---
+
+## Loading tidyverse
+```{r tidyverse}
+library(tidyverse)
+```
+Text
+
+```{r}
+mpg
+```
