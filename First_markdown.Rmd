@@ -1,5 +1,7 @@
 ---
 title: "Seminar 2 R markdown hello world"
+author: "Seevasant Indran"
+date: '2018-01-10'
 output: html_document
 ---
 
