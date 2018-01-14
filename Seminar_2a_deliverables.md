@@ -1,8 +1,14 @@
 ---
-title: "Seminar 2 R markdown hello world"
-author: "Seevasant Indran"
-date: '2018-01-10'
-output: github_document
+title: "Seminar 2a deliverables"
+date: "13 January, 2018"
+author: Seevasant Indran
+output: 
+  html_document:
+    toc: yes
+    toc_depth: 3
+    keep_md: true
+---
+
 
 ---
 
@@ -27,6 +33,3 @@ output: github_document
 [This is a link to GitHub](https://github.com/)
 
 ![This is an image of a puppy](http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-8.jpg)
-
-
-
