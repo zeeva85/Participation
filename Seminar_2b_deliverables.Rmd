@@ -1,5 +1,5 @@
 ---
-title: "Seminar 2a & 2b deliverables"
+title: "Seminar 2b deliverables"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: Seevasant Indran
 output: 
