@@ -1,6 +1,6 @@
 ---
 title: "Seminar 2a deliverables"
-date: "13 January, 2018"
+date: "17 January, 2018"
 author: Seevasant Indran
 output: 
   html_document:

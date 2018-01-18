@@ -1,0 +1,62 @@
+---
+title: "Practice assignment with Titanic dataset
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+author: Seevasant Indran
+output: 
+  github_document:
+    toc: yes
+    toc_depth: 2
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r, echo=TRUE, include=FALSE}
+# This loads the tidyverse packagexa
+library(tidyverse)
+```
+
+
+# Passenger breakdown
+```{r}
+
+#This shows the R documentation help about the dataset and some information on the dataset
+?Titanic 
+
+# This shows that the titanic dataset is a format of 4 dimensional array
+Titanic 
+```
+
+
+## How many children and adults were on Titanic?
+
+```{r}
+# This converts the "Titanic" array" dataset into a data frame format and the converted results are assigned to the variable x"
+x = data.frame(Titanic) 
+```
+
+
+```{r}
+#This shows the head part of the original dataset formal in a 4 dimensional array
+head(Titanic) 
+# This shows that the titanic dataset in dataframe format
+head(x) 
+```
+
+```{r}
+##This creates a new subset assigned to the variable "xa" (Titanic Adults) which contains only the data from the Adults from the orginal object “x"
+xa <- subset(x, Age == "Adult")
+```
+
+
+```{r}
+##Using the same count function on the object "xa" (adults only) summarizing using the variable “Sex"
+count(xa, "Sex") 
+```
+##Using the same count function on the object "xa" (adults only) summarizing using the variable “Sex"
+```{r}
+## This rechecks the work done through the summary
+summary(x)
+```
