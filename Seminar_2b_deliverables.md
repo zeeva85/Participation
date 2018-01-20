@@ -1,6 +1,6 @@
 ---
 title: "Seminar 2a & 2b deliverables"
-date: "13 January, 2018"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 author: Seevasant Indran
 output: 
   html_document:
