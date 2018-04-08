@@ -28,4 +28,4 @@ Seevasant Indran
 [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/free-social-icons/67/twitter_circle_black-32.png)](https://twitter.com/zeeva85) [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_black-32.png)](https://my.linkedin.com/in/seevasantindran) [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/picons-social/57/18-youtube-32.png)](https://www.youtube.com/user/szeeva85) 
 
 ---
-Copyright 2018 :copyright: STAT540  \| University of British Columbia \| (seev.is@ubc.alumni.ca)
+Copyright 2018 :copyright: Seevasant Indran \| University of British Columbia \| (seev.is@ubc.alumni.ca)
