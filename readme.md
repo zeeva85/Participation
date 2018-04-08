@@ -1,14 +1,12 @@
 About this page.
 ---------------  
 
-Welcome to the STAT540 private repository :pray:. This repository will primarily contain the study materials and assignments associated with [STAT540](http://stat540-ubc.github.io/index.html). 
-
 The details of the repository operator.
 
 ---
 #### **Seevasant Indran**
 ##### *Genome Science and Technology (GSAT) 2017*
-##### Graduate student (Loewen Lab)   
+##### Graduate student [Loewen Lab](http://www.loewenlab.ca/research-scope/) 
 
 
 []() \| 
@@ -30,4 +28,4 @@ Seevasant Indran
 [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/free-social-icons/67/twitter_circle_black-32.png)](https://twitter.com/zeeva85) [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_black-32.png)](https://my.linkedin.com/in/seevasantindran) [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/picons-social/57/18-youtube-32.png)](https://www.youtube.com/user/szeeva85) 
 
 ---
-Copyright 2017 :copyright: STAT540  \| University of British Columbia \| (seev.is@ubc.alumni.ca)
+Copyright 2018 :copyright: STAT540  \| University of British Columbia \| (seev.is@ubc.alumni.ca)
