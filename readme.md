@@ -21,10 +21,6 @@ My primary passion is to seek out the mysteries and the intricacies that are all
 > *“To what purpose should I trouble myself in searching out the secrets of the stars, having death or slavery continually before my eyes?” – Anaximenes to Pythagoras, as written in “Cosmos” by Carl Sagan.*
 
 
-## Author 
-
-Seevasant Indran
-
 [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/free-social-icons/67/twitter_circle_black-32.png)](https://twitter.com/zeeva85) [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/free-social-icons/67/linkedin_circle_black-32.png)](https://my.linkedin.com/in/seevasantindran) [![Seevasant Indran](https://cdn3.iconfinder.com/data/icons/picons-social/57/18-youtube-32.png)](https://www.youtube.com/user/szeeva85) 
 
 ---
