@@ -9,24 +9,28 @@
 ## 2. Execute the command; take a look at the console
 ## 3. Execute *this* very line. What happens?
 ## 4. Print out `my_commute`
-my_commute <- 61
+
+my_commute <- 25
 print(my_commute)
 
 
 ## Assign the text "My commute time, in minutes:" to a variable: 
-## 1. Try assigning it to `_x` or `1x`. Does it work?
+## 1. Try assigning it to `_x` or `1x`. Does it work? #No
 ## 2. Assign it to `preamble`.
-preamble <- "My commute time, in minutes"
+preamble <- "My commute time, in minutes:"
 
 
 ## What data types do `my_commute` and `preamble` contain? Use `typeof`.
+typeof(my_commute)
+typeof(preamble)
 
 
 ## Let's use the `paste` function to print out the preamble followed by
 ##  the commute time:
-
+paste(preamble, my_commute)
 
 ## Bring up the documentation for the `print` function.
+help("print")
 ?paste
 
 ## You realize that your commute took you one minute longer than you originally
@@ -47,11 +51,12 @@ commute
 
 ## Get the mean commute time via the `sum` function and `n`. Store in `mu`.
 mu <- sum(commute) / n
+mu
+mean(commute)
 
 ## Get the differences between commute times and `mu`. Behold vectorization!
 ##  No need for loops! Store in the variable `diffs`.
 diff <- (commute - mu)
-
 
 ## Finish computing variance: add up the square of `diffs`, divide by `n-1`.
 ##  Store in the variable `variance`.
@@ -66,14 +71,14 @@ variance
 ## Check computationally whether they are the same. You get a new object --
 ##  what type of object is it?
 variance == var(commute)
+typeof(TRUE)
+
 
 ## Use an `if` statement to check whether the variance is greater than 10.
 ##  If so, print out "yes", if not, print out "no". 
-"hi" == "hi"
-typeof(TRUE)
 if (variance  > 10) {
   print("yes")
-} else  {
+  } else  {
   print("no")
 }
 
@@ -85,3 +90,16 @@ if (variance  > 10) {
 ## 2. We programmed this worksheet *interactively*. Click "Source" to run it
 ##     from "top to bottom", sometimes called "batch mode". You might get
 ##     errors -- this happens when we rely too heavily on interactivity.
+
+ls() ## list objects in the working environment
+
+
+commute 
+diff
+mu
+my_commute
+n
+preamble
+variance
+
+
