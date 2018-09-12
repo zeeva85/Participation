@@ -11,8 +11,9 @@ new branch commit
 
 This repo is part of a STAT 545 exercise to explore GitHub and markdown.
 
-The details of the repository operator.
 
+
+The details of the repository operator.
 ---
 #### **Seevasant Indran**
 ##### *Genome Science and Technology (GSAT) 2017*
