@@ -78,7 +78,7 @@ typeof(TRUE)
 ##  If so, print out "yes", if not, print out "no". 
 if (variance  > 10) {
   print("yes")
-  } else  {
+} else  {
   print("no")
 }
 
