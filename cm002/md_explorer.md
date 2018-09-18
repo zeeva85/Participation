@@ -3,14 +3,32 @@ output:
   html_document: default
   pdf_document: default
 ---
-#This is my title
+# This is a level 1 header
 
-##This is a subtitle
+## And a level 2 header
 
-This is my content. This is **bold**, this is *italics*.
+We're exploring markdown here.
 
-`this is code font`
+I can write in **bold** or *italic*. Write some `code font`, or even
 
-[link to google](https://google.ca)
+```
+blocks
+of
+code.
+```
 
-<https://google.ca>
+[Links](http://stat545.com/Classroom) are simple. 
+
+- Bulleted
+- lists
+- are
+- natural,
+
+as are
+
+1. enumerated
+2. lists,
+3. even
+    - sub
+    - lists
+    - are possible!
