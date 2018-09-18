@@ -1,10 +1,9 @@
 ---
 title: 'cm005: `dplyr` Exercise'
 output:
-  html_document:
-    keep_md: true
+    html_document:
+        keep_md: true
 ---
-
 
 **Optional, but recommended startup**:
 
@@ -16,25 +15,65 @@ Change the file output to both html and md _documents_ (not notebook).
     - This loads `dplyr`, too.
 2. `knit` the document. 
 
+```{r}
+library(gapminder)
+library(tidyverse)
+```
+
+
 ## `select()`
 
 1. Make a data frame containing the columns `year`, `lifeExp`, `country` from the gapminder data, in that order.
 
+```{r}
+select(gapminder, year, lifeExp, country)
+```
+
+
 2. Select all variables, from `country` to `lifeExp`. 
+
+```{r}
+select(gapminder, country:lifeExp)
+```
+
 
 3. Select all variables, except `lifeExp`.
 
+```{r}
+a <- select(gapminder, -lifeExp)
+```
+
+
 4. Put `continent` first. Hint: use the `everything()` function.
 
+```{r}
+select(gapminder, continent, everything())
+```
+
 5. Rename `continent` to `cont`.
+
+```{r}
+rename(gapminder, cont=continent)
+```
+
 
 ## `arrange()`
 
 1. Order by year.
 
+```{r}
+arrange(gapminder, desc(lifeExp))
+```
+
+
 2. Order by year, in descending order.
 
 3. Order by year, then by life expectancy.
+
+```{r}
+arrange(gapminder, year, lifeExp)
+```
+
 
 ## Piping, `%>%`
 
@@ -42,9 +81,24 @@ Note: think of `%>%` as the word "then"!
 
 1. Combine `select()` Task 1 with `arrange()` Task 3.
 
+Make a data frame containing the columns `year`, `lifeExp`, `country` from the gapminder data, in that order. Order by year, then by life expectancy.
+
+```{r}
+b <- gapminder %>% 
+    select(year, lifeExp, country) %>% 
+    arrange(year, lifeExp)
+```
+
+
 ## `filter()`
 
 1. Only take data with population greater than 100 million.
+
+```{r}
+gapminder %>% 
+    filter(pop > 100000000)
+```
+
 
 2. Of those, only take data from Asia.
 
@@ -76,6 +130,18 @@ Your task is to use metaprogramming to check whether a response (like the one ab
 # Relational/Comparison and Logical Operators in R
 
 1. Find all entries of Canada and Algeria occuring in the '60s. 
+
+```{r}
+gapminder %>% 
+    filter((country == "Canada" | country == "Algeria") & year >=1960 & year < 1970)
+gapminder %>% 
+    filter(country %in% c("Canada", "Algeria"), 
+           year >= 1960, 
+           year < 1970)
+gapminder %>% 
+    filter(pop > 1000000000)
+```
+
 
 2. Find all entries of Canada, and entries of Algeria occuring in the '60s. 
 3. Find all entries _not_ including Canada and Algeria.
