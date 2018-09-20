@@ -18,10 +18,13 @@ The details of the repository operator.
 ##### Graduate student [Loewen Lab](http://www.loewenlab.ca/research-scope/) 
 
 
-[]() \| 
-[]() \| 
-[]() \|
-[]()
+[cm001](https://github.com/zeeva85/STAT545A_participation/tree/master/cm001) \| 
+[cm002](https://github.com/zeeva85/STAT545A_participation/tree/master/cm002) \| 
+[cm003](https://github.com/zeeva85/STAT545A_participation/tree/master/cm003) \|
+[cm004](https://github.com/zeeva85/STAT545A_participation/tree/master/cm004) \| 
+[cm005](https://github.com/zeeva85/STAT545A_participation/tree/master/cm005) \| 
+[cm006](https://github.com/zeeva85/STAT545A_participation/tree/master/cm006) \|
+[cm007]()
 ---
 
 
