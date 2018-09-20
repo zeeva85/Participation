@@ -20,10 +20,9 @@ The details of the repository operator.
 ##### Graduate student [Loewen Lab](http://www.loewenlab.ca/research-scope/) 
 
 
-[]() \| 
-[]() \| 
-[]() \|
-[]()
+[md_explorer.html](https://github.com/zeeva85/STAT545A_participation/blob/master/cm002/md_explorer.html) \| 
+[md_explorer.pdf](https://github.com/zeeva85/STAT545A_participation/blob/master/cm002/md_explorer.pdf) \|
+[md_explorer.md](https://github.com/zeeva85/STAT545A_participation/blob/master/cm002/md_explorer.md)
 ---
 
 
