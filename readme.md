@@ -21,7 +21,7 @@ The details of the repository operator.
 [cm004](https://github.com/zeeva85/STAT545A_participation/tree/master/cm004) \| 
 [cm005](https://github.com/zeeva85/STAT545A_participation/tree/master/cm005) \| 
 [cm006](https://github.com/zeeva85/STAT545A_participation/tree/master/cm006) \|
-[cm007]()
+[cm007]
 ---
 
 
