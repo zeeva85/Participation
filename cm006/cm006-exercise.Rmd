@@ -24,13 +24,15 @@ Let's look at a _scatterplot_ of `gdpPercap` vs. `lifeExp`.
 |-----------------------|---------------|
 | __data__              | `gapminder` |
 | __aesthetic mapping__ | `x` and `y` |
-| __geometric object__  | point |
-| scale                 | linear |
-| statistical transform | none |
+| __geometric object__  | point       |
+| scale                 | linear      |
+| statistical transform | none        |
 | coordinate system     | rectangular |
-| facetting             | none |
+| facetting             | none        |
 
-2. Populate the data and aesthetic mapping in `ggplot`. What is returned? What's missing?
+2. Populate the data and aesthetic mapping in `ggplot`. What is returned? What's missing? 
+
+Answer: The points are missing
 
 ```{r}
 ggplot(gapminder, aes(x=lifeExp, y=gdpPercap))
@@ -38,6 +40,8 @@ ggplot(gapminder, aes(x=lifeExp, y=gdpPercap))
 
 
 3. Add the missing component as a _layer_.
+
+Answer : geom_point () added
 
 ```{r}
 ggplot(gapminder, aes(x=lifeExp, y=gdpPercap)) + 
@@ -47,12 +51,23 @@ ggplot(gapminder, aes(x=lifeExp, y=gdpPercap)) +
 
 Notice the "metaprogramming" again!
 
+     From wikipedia...  Metaprogramming is a programming technique in which computer programs have the ability to treat programs as their data. It means that a program can be designed to read, generate, analyse or transform other programs, and even modify itself while running. In some cases, this allows programmers to minimize the number of lines of code to express a solution, thus reducing the development time. It also allows programs greater flexibility to efficiently handle new situations without recompilation.
+
 4. You _must_ remember to put the aesthetic mappings in the `aes` function! What happens if you forget?
 
-```{r}
+Answer: Error: geom_point requires the following missing aesthetics: x, y
+
+```{r, eval = FALSE}
 ggplot(gapminder) +
-    geom_point(aes(x=lifeExp, y=gdpPercap))
+    geom_point()
 ```
+
+```{r}
+ggplot(gapminder, aes(x=lifeExp, y=gdpPercap)) + 
+    geom_point()
+```
+
+
 
 
 5. Put the y-axis on a log scale, first by transforming the y variable. 
@@ -75,8 +90,15 @@ ggplot(gapminder, aes(lifeExp, gdpPercap)) +
 
 7. The aesthetic mappings can be specified on the geom layer if you want, instead of the main `ggplot` call. Give it a try:
 
+```{r}
+ggplot(gapminder) + 
+    geom_point(aes(x=lifeExp, y=gdpPercap))
+```
+
 
 8. Optional: git stage and commit
+
+DONE
 
 __Uses of a scatterplot__: 
 
@@ -92,14 +114,15 @@ Let's build a histogram of life expectancy.
 | Grammar Component     | Specification |
 |-----------------------|---------------|
 | __data__              | `gapminder` |
-| __aesthetic mapping__ | `x` |
-| __geometric object__  | histogram |
-| scale                 | linear |
-| statistical transform | none |
+| __aesthetic mapping__ | `x`         |
+| __geometric object__  | histogram   |
+| scale                 | linear      |
+| statistical transform | none        |
 
 2. Build the histogram of life expectancy.
 
 ```{r}
+
 ggplot(gapminder, aes(lifeExp)) +
     geom_histogram()
 ```
@@ -108,21 +131,27 @@ ggplot(gapminder, aes(lifeExp)) +
 3. Change the number of bins to 50.
 
 ```{r}
+
 ggplot(gapminder, aes(lifeExp)) +
     geom_histogram(bins = 50)
+
 ```
 
 
 4. Instead of a histogram, let's create a kernel density plot.
 
 ```{r}
+
 ggplot(gapminder, aes(lifeExp)) +
     geom_histogram(aes(y=..density..)) +
     geom_density()
+
 ```
 
 
 5. Optional: git stage and commit
+
+DONE
 
 __Uses of a histogram__: Explore the distribution of a single numeric variable.
 
@@ -135,11 +164,11 @@ Let's make _box plots_ of population for each continent. Note: y-axis is much be
 
 | Grammar Component     | Specification |
 |-----------------------|---------------|
-| __data__              | `gapminder` |
-| __aesthetic mapping__ | `x` and `y` |
-| __geometric object__  | boxplot |
-| scale                 | log-y |
-| statistical transform | 5-number summary |
+| __data__              | `gapminder`       |
+| __aesthetic mapping__ | `x` and `y`       |
+| __geometric object__  | boxplot           |
+| scale                 | log-y             |
+| statistical transform | 5-number summary  |
 
 2. Initiate the `ggplot` call, with the log y scale, and store it in the variable `a`. Print out `a`.
 
@@ -157,7 +186,11 @@ a + geom_boxplot()
 ```
 
 4. A violin plot is a kernel density on its side, made symmetric. Add that geom to `a`.
-    - What's better here, boxplots or violin plots? Why?
+    - What's better here, boxplots or violin plots? Why? 
+    
+A violin plot has four layers. The outer shape represents all possible results, with thickness indicating how common. (Thus the thickest section represents the mode average.) The next layer inside represents the values that occur 95% of the time. The next layer (if it exists) inside represents the values that occur 50% of the time. The central dot represents the median average value.
+
+A violin plot is more informative than a plain box plot. In fact while a box plot only shows summary statistics such as mean/median and interquartile ranges, the violin plot shows the full distribution of the data. The difference is particularly useful when the data distribution is multimodal (more than one peak). In this case a violin plot clearly shows the presence of different peaks, their position and relative amplitude. This information could not be represented with a simple box plot which only reports summary statistics. The inner part of a violin plot usually shows the mean (or median) and the interquartile range. In other cases, when the number of samples is not too high, the inner part can show all sample points (with a dot or a line for each sample).
 
 ```{r}
 a + geom_violin()
@@ -165,6 +198,8 @@ a + geom_violin()
 
 
 5. Optional: git stage and commit
+
+Done
 
 __Use of boxplot__: Visualize 1-dimensional distributions (of a single numeric variable).
 
@@ -177,18 +212,22 @@ Let's hold off on identifying the grammar.
 1. Initiate the `ggplot` call to make a scatterplot of `continent` vs `pop`; initiate the log y scale. Store the call in the variable `b`.
 
 ```{r}
-a + geom_point(alpha=0.1)
+b <- a + geom_point(alpha=1/10) # for every 10 points it makes a point 
+
+print(b)
 ```
 
 3. A solution is to jitter the points. Add the jitter geom. Re-run the command a few times -- does the plot change? Why?
 
+Help to handle overplotting better in smaller dataset. It avoids overplotting, overplotting is when one or more points are in the same place (or close enough to the same place) that you can't look at the plot and tell how many points are there.
+
 ```{r}
-a + geom_jitter(alpha=0.25)
+a + geom_jitter(alpha = 1/4)
 ```
 
 
 4. How does the grammar differ from a box plot or violin plot?
-    - ANSWER: 
+    - ANSWER: geom_point(position = "jitter")
 
 5. We can add multiple geom _layers_ to our plot. Put a jitterplot overtop of the violin plot, starting with our base `b`. Try vice-versa. 
 
@@ -236,11 +275,16 @@ gapminder %>%
 ```{r}
 c <- ggplot(gapminder, aes(year, lifeExp))
 c + geom_line()
-c + geom_line(aes(group=country), alpha=0.2)
+
 ```
 
 
 4. Use the `group` aesthetic to fix the problem.
+```{r}
+
+c + geom_line(aes(group = country), alpha = 0.2)
+
+```
 
 
 
