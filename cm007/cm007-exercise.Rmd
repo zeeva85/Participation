@@ -8,30 +8,24 @@ output: github_document
 Switch focus to exploring aesthetic mappings, instead of geoms. 
 
 ```{r}
-library(tidyverse)
 library(gapminder)
+library(tidyverse)
 ```
 
 
 ## Shapes
 
-- Try a scatterplot of `gdpPercap` vs `lifeExp` with a categorical variable (continent) as `shape`.
-
-```{r}
-gvsl <- ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-    scale_x_log10()
-gvsl + geom_point(aes(shape=continent), alpha=0.2)
-```
-
-
+- Try a scatterplot of `gdpPercap` vs `pop` with a categorical variable (continent) as `shape`.
 - As with all (?) aesthetics, we can also have them _not_ as aesthetics!
     - Try some shapes: first as integer from 0-24, then as keyboard characters.
     - What's up with `pch`?
     
 ```{r}
-gvsl + geom_point(shape = 7)
-gvsl + geom_point(pch = 7)
-gvsl + geom_point(shape = "$")
+ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, fill=continent, shape=continent)) +
+  geom_point() +
+  scale_x_log10()
+
+gvsl <- ggplot(gapminder, aes(gdpPercap, lifeExp)) + scale_x_log10()
 ```
 
 
@@ -42,68 +36,74 @@ List of shapes can be found [at the bottom of the `scale_shape` documentation](h
 Make a scatterplot. Then:
 
 - Try colour as categorical variable.
-
-```{r}
-gvsl + geom_point(aes(color = continent))
-```
-
-
 - Try `colour` and `color`. 
 - Try colour as numeric variable.
     - Try `trans="log10"` for log scale.
-
+    
 ```{r}
-gvsl + geom_point(aes(colour = pop)) + scale_colour_continuous(trans="log10")
-gvsl + geom_point(aes(colour = lifeExp > 60))
+ggplot(gapminder, aes(x=gdpPercap, y=lifeExp, fill=continent, color=continent)) +
+  geom_point() +
+  scale_x_log10()
+
+#as numerical
+gvsl + geom_point(aes(color=pop)) +
+  scale_color_continuous(trans="log10")
+
+#With lifeExp > 60
+gvsl + geom_point(aes(color=lifeExp>60))
 ```
 
 
+
 Make a line plot of `gdpPercap` over time for all countries. Colour by `lifeExp > 60` (remember that `lifeExp` looks bimodal?)
+
+```{r}
+filter(gapminder,lifeExp>60) %>% 
+ggplot(aes(country, gdpPercap, color=lifeExp)) +
+  scale_y_log10() +
+  geom_line()
+```
 
 
 Try adding colour to a histogram. How is this different?
 
 ```{r}
-ggplot(gapminder, aes(lifeExp)) + 
-    geom_histogram(aes(fill=continent))
+ggplot(gapminder, aes(lifeExp)) +
+  geom_histogram(aes(fill=continent))
 ```
 
 
 ## Facetting
 
 Make histograms of `gdpPercap` for each continent. Try the `scales` and `ncol` arguments. 
+
+Remove Oceania. Add another variable: `lifeExp > 60`. 
+
 ```{r}
 ggplot(gapminder, aes(lifeExp)) +
-    facet_wrap( ~ continent, scales = "free_x") +
-    geom_histogram()
-```
+  facet_wrap(~ continent, scales="free_x")+
+  geom_histogram()
+#This function makes the axis the same, change scales if you want
 
-
-Remove Oceania. Add another variable: `lifeExp > 60`.
-
-```{r}
+#new variable lifeExp>60
 ggplot(gapminder, aes(gdpPercap)) +
-    facet_grid(continent ~ lifeExp > 60) +
-    geom_histogram()
+  facet_grid(continent ~ lifeExp > 60)+
+  geom_histogram()
+
 ```
 
 
 ## Bubble Plots
 
 - Add a `size` aesthetic to a scatterplot. What about `cex`?
-
-```{r}
-gvsl + geom_point(aes(size = pop), alpha=0.2) +
-    scale_size_area()
-```
-
-
 - Try adding `scale_radius()` and `scale_size_area()`. What's better?
 - Use `shape=21` to distinguish between `fill` (interior) and `colour` (exterior).
 
 ```{r}
-gvsl + geom_point(aes(size=pop, fill=continent), 
-                  shape=21, colour="black", alpha=0.2)
+gvsl + geom_point(aes(size=pop), alpha=0.2) + scale_size_area() #changes size to rep. magnitude of numerical variable
+
+#try shape=21
+gvsl + geom_point(aes(size=pop, fill=continent),shape=21, color="black", alpha=0.3)
 ```
 
 
@@ -116,11 +116,13 @@ Let's try plotting much of the data.
 - colour by continent
 
 ```{r}
-gvsl + geom_point(aes(size=pop, colour=continent)) +
-    scale_size_area() +
-    facet_wrap(~ year)
+ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+  geom_point(aes(size=pop, color=continent)) +
+  scale_size_area() +
+  facet_wrap(~ year) +
+  scale_x_log10() +
+  theme_bw()
 ```
-
 
 
 # Continue from last time (geom exploration with `x` and `y` aesthetics)
@@ -134,14 +136,13 @@ Let's see how Rwanda's life expectancy and GDP per capita have evolved over time
 - Add `geom_text`, with year label. 
 
 ```{r}
-gapminder %>% 
-    filter(country == "Rwanda") %>%
-    arrange(year) %>% 
-    ggplot(aes(gdpPercap, lifeExp)) +
-    #scale_x_log10() +
-    geom_point() +
-    geom_path(arrow=arrow())
+filter(gapminder, country=="Rwanda") %>%
+  arrange(year) %>% 
+  ggplot(aes(gdpPercap, lifeExp)) + 
+  geom_point() +
+  geom_path(arrow=arrow()) #can specify width, arrow head type, etc...
 ```
+
 
 
 ## Two categorical variables
@@ -153,8 +154,9 @@ Try `cyl` (number of cylinders) ~ `am` (transmission) in the `mtcars` data frame
 - `geom_bin2d()`. Compare with `geom_tile()` with `fill` aes.
 
 ```{r}
-ggplot(mtcars, aes(factor(cyl), factor(am))) +
-    geom_bin2d()
+ggplot(mtcars, aes(factor(cyl), factor(am))) +  #factor forces numbers to be categories
+  geom_bin2d()
+
 ```
 
 
@@ -170,7 +172,7 @@ Try a scatterplot with:
 ```{r}
 gvsl + geom_hex()
 gvsl + geom_density2d()
-gvsl + geom_point(alpha=0.1) + geom_smooth(method="lm")
+gvsl + geom_smooth(method = "lm", se=FALSE) +geom_point(alpha=0.3)
 ```
 
 
@@ -181,10 +183,9 @@ How many countries are in each continent? Use the year 2007.
 1. After filtering the gapminder data to 2007, make a bar chart of the number of countries in each continent. Store everything except the geom in the variable `d`.
 
 ```{r}
-gapminder %>% 
-    filter(year == 2007) %>% 
-    ggplot(aes(x=continent)) +
-    geom_bar()
+filter(gapminder, year==2007) %>% 
+  ggplot(aes(continent)) +
+  geom_bar()
 ```
 
 
@@ -205,18 +206,52 @@ gvsl + geom_point() + coord_polar()
 ```
 
 
+
 # Want more practice?
 
 If you'd like some practice, give these exercises a try
 
 __Exercise 1__: Make a plot of `year` (x) vs `lifeExp` (y), with points coloured by continent. Then, to that same plot, fit a straight regression line to each continent, without the error bars. If you can, try piping the data frame into the `ggplot` function.
 
+```{r}
+ggplot(gapminder, aes(year, lifeExp)) +
+  geom_point(aes(color=continent)) +
+  geom_smooth(method= "lm",se=FALSE, aes(color=continent))
+```
+
 __Exercise 2__: Repeat Exercise 1, but switch the _regression line_ and _geom\_point_ layers. How is this plot different from that of Exercise 1?
+
+```{r}
+
+```
+
 
 __Exercise 3__: Omit the `geom_point` layer from either of the above two plots (it doesn't matter which). Does the line still show up, even though the data aren't shown? Why or why not?
 
+```{r}
+ggplot(gapminder, aes(year, lifeExp)) +
+  #geom_point(aes(color=continent)) +
+  geom_smooth(method= "lm",se=FALSE, aes(color=continent))
+```
+
+
 __Exercise 4__: Make a plot of `year` (x) vs `lifeExp` (y), facetted by continent. Then, fit a smoother through the data for each continent, without the error bars. Choose a span that you feel is appropriate.
 
-__Exercise 5__: Plot the population over time (year) using lines, so that each country has its own line. Colour by `gdpPercap`. Add alpha transparency to your liking. 
+```{r}
+ggplot(gapminder, aes(year, lifeExp)) +
+  facet_wrap(~ continent) +
+  geom_smooth(se=FALSE) +
+  geom_point()
+```
+
+
+__Exercise 5__: Plot the population over time (year) using lines, so that each country has its own line. Colour by `gdpPercap`. Add alpha transparency to your liking.
+
+```{r}
+ggplot(gapminder, aes(year, pop, fill=continent)) +
+  geom_smooth(method="lm", se=FALSE)
+
+```
+
 
 __Exercise 6__: Add points to the plot in Exercise 5.
