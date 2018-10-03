@@ -4,7 +4,7 @@ output: github_document
 ---
 
 ```{r}
-suppressPackageStartupMessages(library(tidyverse)) #keeps output from displaying, cleaner files
+suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(gapminder))
 ```
 
@@ -16,9 +16,9 @@ Let's get:
 - GDP in billions, named (`gdpBill`), rounded to two decimals.
 
 ```{r}
-#Creates a new column(s) that are calculated from other columns
-mutate(gapminder, gdp = gdpPercap * pop, gdpBill = round(gdp /10^9, 2))
-#notice calling variable we created in the function, within the function
+gapminder %>% 
+    mutate(gdp = gdpPercap * pop,
+           gdpBill = round(gdp / 10^9, 2))
 ```
 
 
@@ -27,7 +27,9 @@ Notice the backwards compatibility! No need for loops!
 Try the same thing, but with `transmute` (drops all other variables). 
 
 ```{r}
-transmute(gapminder, gdp = gdpPercap * pop, gdpBill = round(gdp /10^9, 2))
+gapminder %>% 
+    transmute(gdp = gdpPercap * pop,
+              gdpBill = round(gdp / 10^9, 2))
 ```
 
 The `if_else` function is useful for changing certain elements in a data frame.
@@ -35,30 +37,32 @@ The `if_else` function is useful for changing certain elements in a data frame.
 Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in the data frame, but is actually 70. Fix it using `if_else` and `mutate`. 
 
 ```{r}
-if_else(letters == "h", "H", letters) #example
-
+if_else(letters == "h", "H", letters)
 gapminder %>% 
-  mutate(lifeExp = if_else(country == "Canada" & year == 1952, 70, lifeExp)) %>% 
-  filter(country=="Canada")
+    mutate(lifeExp = if_else(country == "Canada" & year == 1952, 70, lifeExp)) %>% 
+    filter(country == "Canada")
+gapminder %>% 
+    filter(country == "Canada")
 ```
 
 
 Your turn: Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma. (Hint: use the `paste` function with the `sep=", "` argument).
 
 ```{r}
-mutate(gapminder, cc = paste(country, continent, sep= ", "))
+gapminder %>% 
+    mutate(cc = paste(country, continent, sep=", "))
 ```
 
-These functions we've seen are called __vectorized functions__. #returns vector
+These functions we've seen are called __vectorized functions__. 
 
 ## `summarize()` and `group_by()`
 
 Use `summarize()` to compute the mean and median life expectancy using all entries:
 
 ```{r}
-#non-vectorized functions take a vector and return one value
 gapminder %>% 
-  summarise(mu = mean(lifeExp), md = median(lifeExp))
+    summarize(mu = mean(lifeExp),
+              md = median(lifeExp))
 ```
 
 Do the same thing, but try:
@@ -67,9 +71,16 @@ Do the same thing, but try:
 2. grouping by continent and country
 
 ```{r}
-gapminder %>%
-  group_by(country) %>% 
-  summarise(mu = mean(lifeExp), md = median(lifeExp))
+gapminder %>% 
+    group_by(country) %>% 
+    summarize(mu = mean(lifeExp),
+              md = median(lifeExp))
+gapminder %>% 
+    group_by(continent, country) %>% 
+    summarize(mu = mean(lifeExp),
+              md = median(lifeExp))
+gapminder %>% 
+    group_by(continent, country)
 ```
 
 - Notice the columns that are kept. 
@@ -82,30 +93,42 @@ For each continent: What is the smallest country-wide median GDP per capita?
 
 ```{r}
 gapminder %>% 
-  group_by(country, continent) %>% 
-  summarise(md_gdp = median(gdpPercap)) %>% 
-  summarise(min = min(md_gdp))
+    group_by(continent, country) %>% 
+    summarize(md = median(gdpPercap)) %>% 
+    summarize(min(md))
 ```
 
 Note that ggplot2's grouping is different from dplyr's! Try making a spaghetti plot of lifeExp over time for each coutry, by piping in a grouped data frame -- it won't work:
 
 ```{r}
 gapminder %>% 
-  group_by(country) %>% 
-  ggplot(aes(year, lifeExp, group=country)) +
-  geom_line()
+    group_by(country) %>% 
+    ggplot(aes(year, lifeExp)) +
+    geom_line()
 ```
 
+Should be:
+
+```{r}
+gapminder %>% 
+    ggplot(aes(year, lifeExp, group=country)) +
+    geom_line()
+```
 
 Your turn! For each continent, what is the median GDP per capita of countries with high (>60) life expectancy vs countries with low (<=60)? Sort this data frame by median GDP per capita.
 
 ```{r}
-gapminder %>%
-  mutate(age = if_else(lifeExp > 60, "low", "high")) %>% 
-  group_by(continent, age) %>% 
-  summarise(md = median(gdpPercap)) %>% 
-  arrange(md)
-  
+gapminder %>% 
+    mutate(hvsl = if_else(lifeExp > 60, "high", "low")) %>% 
+    #group_by(continent, lifeExp > 60) %>%
+    group_by(continent, hvsl) %>% 
+    summarize(md = median(gdpPercap)) %>% 
+    arrange(md)
+
+gapminder %>% 
+    mutate(age = if_else(lifeExp > 60, "high", "low")) %>% 
+    group_by(continent, age) %>%
+    summarize(md = median(gdpPercap))
 ```
 
 There are special functions to summarize by. Let's see some of them:
@@ -113,21 +136,22 @@ There are special functions to summarize by. Let's see some of them:
 - `n()`: Number of rows in the group.
 - `n_distinct()`
 
+```{r}
+gapminder %>% 
+    group_by(continent) %>% 
+    #summarize(num = n())
+    tally()
+gapminder %>% 
+    count(continent)
+```
+
+
 Convenience functions:
 
 - `tally()` (= `summarize(n = n())`)
 - `count(...)` (= `group_by(...) %>% tally()`)
 
 n_distinct: How many years of record does each country have?
-
-```{r}
-summarise(gapminder,num = n())
-
-gapminder %>%
-  count(continent)
-
-n_distinct(gapminder$year)
-```
 
 
 ## Function types
@@ -148,31 +172,27 @@ Calculate the growth in population since the first year on record _for each coun
 
 ```{r}
 gapminder %>% 
-  group_by(country) %>% 
-  mutate(growth = pop - first(pop))
-
+    group_by(country) %>% 
+    mutate(growth = pop - first(pop))
+## change in population
 gapminder %>% 
-  group_by(country) %>% 
-  mutate(change = pop-lag(pop))
+    group_by(country) %>% 
+    mutate(change = pop - lag(pop))
 ```
 
 Notice that `dplyr` has retained the original grouping.
+
+Similar to `lag()`: `lead()` function.
 
 How about growth compared to `1972`?
 
 ```{r}
 gapminder %>% 
-  group_by(country) %>% 
-  mutate(growth = pop - pop[year == 1972])
+    group_by(country) %>% 
+    mutate(growth = pop - pop[year == 1972])
 ```
 
-Make a new variable `pop_last_time`, as the "lag-1" population -- that is, the population from the previous entry of that country. Use the `lag` function.
 
-```{r}
-
-```
-
-Similar: `lead` function.
 
 Notice the NA's. 
 
@@ -184,23 +204,43 @@ Your turn: Use what we learned to answer the following questions.
 
 ```{r}
 gapminder %>% 
-  group_by(country, continent) %>% 
-  mutate(gain = lifeExp-lag(lifeExp)) %>% 
-  filter(!is.na(gain)) %>% 
-  summarise(min = min(gain)) %>% 
-  summarise(min(min)) 
-  
+    group_by(continent, country) %>% 
+    mutate(gain = lifeExp - lag(lifeExp)) %>% 
+    # filter(!is.na(gain)) %>% 
+    summarize(worst = min(gain, na.rm=TRUE)) %>% 
+    top_n(1, wt=desc(worst)) %>% 
+    arrange(worst)
 ```
 
 2. Compute the relative gdp (NOT per capita!) of each country compared to Canada (= GDP of a country / GDP of Canada).
 
 ```{r}
-gapminder %>%
-  group_by(country) %>% 
-  mutate(gdp = gdpPercap*pop) %>% 
-  group_by(year) %>% 
-  mutate(gdp_rel = gdp/gdp[country=="Canada"]) 
+## A more rudimentary way:
+cda <- gapminder %>% 
+    mutate(gdp = gdpPercap * pop) %>% 
+    filter(country == "Canada") %>% 
+    `[[`("gdp")
 
+my_df <- gapminder %>% 
+    mutate(cda_gdp = rep(cda, nlevels(country)),
+           gdp = gdpPercap * pop,
+           rel_gdp = gdp/cda_gdp)
+
+## Sanity check:
+my_df %>% filter(country == "Canada") %>% 
+    select(country, continent, year, rel_gdp)
+summary(my_df$rel_gdp)
+
+## A more sound approach:
+my_df2 <- gapminder %>% 
+    group_by(year) %>% 
+    mutate(gdp = gdpPercap*pop,
+           rel_gdp = gdp / gdp[country=="Canada"])
+
+## Sanity check:
+my_df2 %>% filter(country == "Canada") %>% 
+    select(country, continent, year, rel_gdp)
+summary(my_df2$rel_gdp)
 ```
 
 Sanity check: are Canada's numbers = 1? What is the spread of numbers like (should be small)?
