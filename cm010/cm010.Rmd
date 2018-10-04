@@ -142,13 +142,27 @@ flights2 %>%
 
 ### example for `semi_join`: All rows in `a` that have a match in `b`
 
+```{r}
 
+semi_join(a,b, by = "x1")
+a
 
+b
+```
 ### example for `anti_join`: All rows in `a` that do not have a match in `b`
 
+```{r}
+anti_join(a,b)
+```
 
 
 ### example of joinin by matching two variables (e.g., "x1", "x2") from both datasets `a` and `c`
+```{r}
+a
+c
+
+semi_join(a, c)
+```
 
 
 
@@ -165,13 +179,26 @@ flights2 %>%
 
 ### example for `intersect`: Rows that appear in both `y` and `z`
 
+```{r}
+intersect(y,z)
+```
 
 
 ### example for `union`: Rows that appear in either or both `y` and `z`
 
+```{r}
+union(y,z)
+```
 
 
 ### example for `setdiff`: Rows that appear in `y` but not `z`. __Caution:__ `setdiff` for `y` to `z` and `z` to `y` are different.
+```{r}
+setdiff(y,z) #absent in z but present in y
+
+#vs
+
+setdiff(z,y)
+```
 
 
 
@@ -179,6 +206,9 @@ flights2 %>%
 
 ```{r}
 (x <- tibble(x1 = c("B", "C", "D"), x3 = 2:4))
+
+#intersect(y,x) # wont work no matching rows
+#union(y,x)
 
 ```
 
@@ -188,12 +218,23 @@ flights2 %>%
 
 ### example for `bind_rows`: Append `z` to `y` as new rows
 
+```{r}
+bind_rows(y,z)
+```
 
 
 ### example for `bind_cols`: Append `z` to `y` as new columns. __Caution__: matches rows by position. Check colnames after binding.
 
+```{r}
+bind_cols(y,z)
+z
+```
+
 
 ### what happen if colnames are different between `y` and `x` datasets?
+```{r}
+bind_cols(y, x)
+```
 
 
 ##Practice Exercises
@@ -202,9 +243,32 @@ Practice these concepts in the following exercises. It might help you to first i
 
 ### 1. Filter the rows of `flights2` by matching "year" and "time_hour" variables to `weather` dataset. Use both `semi_join()` and `anti_join()`
 
+```{r}
+
+semi_join(flights2, weather)  
+anti_join(flights2, weather)
+
+```
 
 
 ### 2. Can we apply `set` and `binding` funcions between `flights2` and `weather` datasets. Why and why not?
 
+```{r}
+# union(flights2, weather)
+bind_rows(flights2, weather)
+
+flights2
+weather
+```
+
 
 ### 3. Let's create a tibble `p` with "x1" and "x2" coulmns and have duplicated element in "x1" column. Create another tibble `q` with "x1" and "x3" columns. Then apply `left_join` function `p` to `q` and `q` to `p`. 
+
+```{r}
+p <- tibble(x1 = c("a", "b", "b", "c", x2 = 1:4))
+q <- tibble(x1 = c("a","b","c","c", x3 = 5:8))
+            
+left_join(p,q)
+left_join(q,p)
+```
+
