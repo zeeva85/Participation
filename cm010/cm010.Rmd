@@ -1,6 +1,7 @@
 ---
 title: "cm010 Exercises"
 output: github_document
+  keep_md: TRUE
 ---
 
 ## Install `nycflights13` package
@@ -22,7 +23,7 @@ suppressPackageStartupMessages(library(nycflights13))
 
 ```{r}
 (a <- tibble(x1 = LETTERS[1:3], x2 = 1:3))
-(b <- tibble(x1 = LETTERS[c(1,2,4)], x3 = c("T", "F", "T")))
+(b <- tibble(x1 = LETTERS[c(1,2,4)], x3 = c("T", "F", "T"))) 
 ```
 
 ### left_join: Join matching rows from `b` to `a` by matching "x1" variable
