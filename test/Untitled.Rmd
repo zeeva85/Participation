@@ -8,6 +8,8 @@ output: github_document
 A not so minimal guide to readr, dplyr and tidyr.
 <details>
   <summary>
+hh
+  </summary>
 WARNING!! install.packages()+ CONTENT
 Why Data Manipulation
 Examples of Messy vs Tidy data
@@ -19,8 +21,6 @@ Relationship to the other functions
 Tibble diff
 {base} R and dplyr
 Chaining
-  </summary>
-  Your markdown content here
 </details>
 
 A tidyr walkthrough
