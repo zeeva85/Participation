@@ -10,11 +10,11 @@ A not so minimal guide to readr, dplyr and tidyr.
   <summary>
 Table of content
   </summary>
-[WARNING!! install.packages()+ CONTENT](#WARNING!!-install.packages()+-CONTENT)
-[Why Data Manipulation](#Why-Data-Manipulation)
-[Examples of Messy vs Tidy data](#Examples-of-Messy-vs-Tidy-data)
-[A gapminder tidy <- untidy walkthough](#A gapminder tidy <- untidy walkthough)
-[Untidy-gapminder-(above)-vs-tidy-gapminder-(below)](#Untidy-gapminder-(above)-vs-tidy
+- [WARNING!! install.packages()+ CONTENT](#WARNING!!-install.packages()+-CONTENT)  
+- [Why Data Manipulation](#Why-Data-Manipulation)  
+- [Examples of Messy vs Tidy data](#Examples-of-Messy-vs-Tidy-data)  
+- [A gapminder tidy <- untidy walkthough](#A gapminder tidy <- untidy walkthough)  
+- [Untidy-gapminder-(above)-vs-tidy-gapminder-(below)](#Untidy-gapminder-(above)-vs-tidy  
 </details>
 
 
