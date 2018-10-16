@@ -20,8 +20,14 @@ The details of the repository operator.
 [cm003](https://github.com/zeeva85/STAT545A_participation/tree/master/cm003) \|
 [cm004](https://github.com/zeeva85/STAT545A_participation/tree/master/cm004) \| 
 [cm005](https://github.com/zeeva85/STAT545A_participation/tree/master/cm005) \| 
-[cm006](https://github.com/zeeva85/STAT545A_participation/tree/master/cm006) \|
-[cm007](https://github.com/zeeva85/STAT545A_participation/blob/master/cm007/cm007-exercise.md)
+[cm006](https://github.com/zeeva85/STAT545A_participation/blob/master/cm006/cm006-exercise.md) \|
+[cm007](https://github.com/zeeva85/STAT545A_participation/blob/master/cm007/cm007-exercise.md)\|
+[cm008](https://github.com/zeeva85/STAT545A_participation/blob/master/cm008/cm008-exercise.md) \| 
+[cm009](https://github.com/zeeva85/STAT545A_participation/blob/master/cm009/cm009-exercise.Rmd) \| 
+[cm010](https://github.com/zeeva85/STAT545A_participation/blob/master/cm010/cm010.md) \|
+[cm011](https://github.com/zeeva85/STAT545A_participation/blob/master/cm011/cm011-exercise.Rmd) \| 
+[cm012](https://github.com/zeeva85/STAT545A_participation/blob/master/cm012/cm012.Rmd) \| 
+[cm013](https://github.com/zeeva85/STAT545A_participation/blob/master/cm013/cm013.Rmd) \|
 ---
 
 

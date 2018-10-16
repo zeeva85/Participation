@@ -1,7 +1,9 @@
 ---
-title: "cm009 Exercises: tidy data"
-output: html_notebook
-editor_options: 
+title: 'cm009 Exercises: tidy data'
+output:
+  html_document:
+    df_print: paged
+editor_options:
   chunk_output_type: inline
 ---
 
