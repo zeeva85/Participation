@@ -1,8 +1,6 @@
 ---
 title: "cm013 Exercise"
-output: html_notebook
-editor_options: 
-  chunk_output_type: inline
+output: html_document
 ---
 
 ```{r}
@@ -18,9 +16,9 @@ library(gapminder)
     - Practice by saving the following plot to file: 
 
 ```{r}
-ggplot(mtcars, aes(hp, wt)) + 
+p <- ggplot(mtcars, aes(hp, wt)) + 
     geom_point()
-ggsave(FILENAME_HERE, PLOT_OBJECT_HERE)
+ggsave("my_plot.png", p)
 ```
 
 - Base R way: print plots "to screen", sandwiched between `pdf()`/`jpeg()`/`png()`... and `dev.off()`. 
@@ -50,9 +48,9 @@ p_scales +
     scale_x_log10() +
     scale_colour_continuous(
         trans  = "log10", 
-        breaks = FILL_IN_BREAKS
+        breaks = 10^(1:10)
     ) +
-    FILL_IN_SCALE_FUNCTION(breaks=FILL_IN_BREAKS)
+    scale_y_continuous(breaks=1:10 * 10)
 ```
 
 2. Specify `scales::*_format` in the `labels` argument of a scale function to do the following:
@@ -76,10 +74,11 @@ p_scales +
 
 ```{r}
 ## All palettes the come with RColorBrewer:
+#install.packages("RColorBrewer")
 RColorBrewer::display.brewer.all()
 p_scales +
     scale_x_log10(labels=dollar_format()) +
-  scale_color_distiller(
+    scale_colour_distiller(
         trans   = "log10",
         breaks  = 10^(1:10),
         labels  = comma_format(),
@@ -118,7 +117,7 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
      labs(x = "Sepal Width",
           y = "Sepal Length",
           title = "Sepal sizes of three plant species") +
-  theme_bw()
+    theme_bw()
 ```
 
 2. Then, change font size of axis labels, and the strip background colour. Others?
@@ -131,8 +130,8 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
           y = "Sepal Length",
           title = "Sepal sizes of three plant species") +
     theme_bw() +
-    theme(axis.text = element_text(size = 16),
-          strip.background = element_rect(fill = "orange"), 
+    theme(axis.text = element_text(size=16),
+          strip.background = element_rect(fill = "orange"),
           panel.background = element_rect(fill = "blue"))
 ```
 
@@ -162,7 +161,7 @@ Consider the following plot:
 
 ```{r}
 library(plotly)
-ggplotly (p)
+ggplotly(p)
 ```
 
 2. You can save a plotly graph locally as an html file. Try saving the above:
@@ -208,5 +207,4 @@ plot_ly(gapminder,
         mode = "markers",
         opacity = 0.2)
 ```
-
 
