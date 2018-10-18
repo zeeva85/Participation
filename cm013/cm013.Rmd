@@ -1,6 +1,10 @@
 ---
 title: "cm013 Exercise"
-output: html_document
+output: 
+    html_document:
+        theme: cerulean
+        toc: true
+        keep_md: true
 ---
 
 ```{r}
@@ -170,7 +174,7 @@ ggplotly(p)
 ```{r}
 p %>% 
     ggplotly() %>% 
-    htmlwidgets::saveWidget("LOCATION_GOES_HERE")
+    htmlwidgets::saveWidget("/Users/seevasantindran/Desktop/GitHub/STAT545_Participation/cm013/")
 ```
 
 
