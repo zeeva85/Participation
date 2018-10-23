@@ -1,25 +1,58 @@
----
-title: "test`"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-author: Seevasant Indran
-output: github_document
+
+
+<details>
+<summary>How do I dropdown?</summary>
+<br>
+This is how you dropdown.
+<br><br>
+<pre>
+&lt;details&gt;
+&lt;summary&gt;How do I dropdown?&lt;/summary&gt;
+&lt;br&gt;
+This is how you dropdown.
+&lt;details&gt;
+</pre>
+</details>
+
 ---
 
-A not so minimal guide to readr, dplyr and tidyr.
+<details open>
+<summary>Want to ruin the surprise?</summary>
+<br>
+Well, you asked for it!
+<br><br>
+<pre>
+&lt;details open&gt;
+&lt;summary&gt;Want to ruin the surprise?&lt;/summary&gt;
+&lt;br&gt;
+Well, you asked for it!
+&lt;details&gt;
+</pre>
+</details>
+
+
+header
 <details>
   <summary>
 Table of content
   </summary>
-- [WARNING!! install.packages()+ CONTENT](#WARNING!!-install.packages()+-CONTENT)  
-- [Why Data Manipulation](#Why-Data-Manipulation)  
-- [Examples of Messy vs Tidy data](#Examples-of-Messy-vs-Tidy-data)  
-- [A gapminder tidy <- untidy walkthough](#A gapminder tidy <- untidy walkthough)  
-- [Untidy-gapminder-(above)-vs-tidy-gapminder-(below)](#Untidy-gapminder-(above)-vs-tidy  
+text here to hide
 </details>
 
 
-#WARNING!! install.packages()+ CONTENT
-#Why Data Manipulation
-###Examples of Messy vs Tidy data
-####A gapminder tidy <- untidy walkthough
-##Untidy gapminder (above) vs tidy gapminder (below).
+## collapsible markdown?
+
+<details><summary>CLICK ME</summary>
+<p>
+
+#### yes, even hidden code blocks!
+
+```python
+print("hello world!")
+```
+
+</p>
+</details>
+
+
+
