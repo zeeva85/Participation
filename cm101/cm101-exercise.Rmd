@@ -18,7 +18,12 @@ This worksheet is a condensed version of Jenny's stat545.com functions [part1](h
 Let's demo the syntax of function-making.
 
 ```{r}
+square <- function(x)  {
+  y <- x^2
+  return(y)
+}
 
+square(10)
 ```
 
 ## Motivating example: max minus min.
@@ -34,7 +39,11 @@ max(gapminder$lifeExp) - min(gapminder$lifeExp)
 Exercise: turn this into a function! i.e., write a function that returns the max minus min of a vector. Try it out on the gapminder variables.
 
 ```{r}
-max_minus_min <- FILL_THIS_IN
+max_minus_min <- function(x) {
+  max(x) - min(x)
+}
+
+max_minus_min(gapminder$lifeExp)
 ```
 
 We'll be building on this. Development philosophy [widely attributed to the Spotify development team](http://blog.fastmonkeys.com/?utm_content=bufferc2d6e&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer):
@@ -49,7 +58,9 @@ Check your function using your own eyeballs:
 - Apply to a random uniform vector. Do you get meaningful results?
 
 ```{r}
+max_minus_min(1:10)
 
+max_minus_min(runif(100))
 ```
 
 Let's formalize this testing with the `testthat` package. `expect_*()` functions:
@@ -64,8 +75,12 @@ Add another check to the following unit test, based on the uniform random number
 ```{r}
 test_that("Simple cases work", {
     expect_equal(max_minus_min(1:10), 9)
-    FILL_THIS_IN
+    expect_lt(max_minus_min(runif(100)), 1)
 })
+
+#test that simple cases work
+ expect_equal(max_minus_min(1:10), 9)
+ expect_lt(max_minus_min(runif(100)), 1)
 ```
 
 ## Try and break your function
@@ -103,9 +118,11 @@ Your turn:  Use two methods:
 
 ```{r}
 mmm1 <- function(x) {
-    FILL_THIS_IN
+    stopifnot(!is.numeric(x))
     max(x) - min(x)
 }
+
+mmm1("hello")
 ```
 
 2. Using `stop` and an `if` statement, Modify the max-min function to:
@@ -115,7 +132,7 @@ mmm1 <- function(x) {
 ```{r}
 mmm2 <- function(x) {
     if (!is.numeric(x)) {
-        FILL_THIS_IN
+        stop(paste("Expecting x to be nummeric. You gave me", typeof(x)))
     }
     max(x) - min(x)
 }
@@ -130,7 +147,8 @@ mmm1(gapminder$country)
 mmm1(gapminder[c('lifeExp', 'gdpPercap', 'pop')])
 mmm1(c(TRUE, TRUE, FALSE, TRUE, TRUE))
 
-mm2((numeric(0)))
+
+mmm2((numeric(0)))
 mmm2(gapminder)
 mmm2(gapminder$country)
 mmm2(gapminder[c('lifeExp', 'gdpPercap', 'pop')])
@@ -172,7 +190,7 @@ If we input a vector stored in some variable, need that variable be named `x`?
 Would be nice to have defaults for `probs`, right? Add them to the below code (which is copied and pasted from above):
 
 ```{r}
-qd2 <- function(x, probs) {
+qd2 <- function(x, probs=c(0,1)) {
     stopifnot(is.numeric(x))
     if (length(x) == 0) {
         warning("You inputted a length-0 x. Expecting length >=1. Returning NULL.")
@@ -181,6 +199,7 @@ qd2 <- function(x, probs) {
     qvec <- quantile(x, probs)
     max(qvec) - min(qvec)
 }
+qd2(rnorm(100))
 ```
 
 ## NA handling
@@ -189,7 +208,7 @@ Does this return what we were expecting?
 
 ```{r}
 v <- c(1:10, NA)
-qd(v)
+qd2(v)
 ```
 
 Notice that `quantile()` has a `na.rm` option. Let's use it in our `qd` function. Modify the code below:
@@ -211,13 +230,17 @@ qd2 <- function(x, probs=c(0,1)) {
 There are other arguments to `quantile`, like `type`, that are not used all that much. Put them in as ellipses:
 
 ```{r}
-qd2 <- function(x, probs=c(0,1), na.rm=FALSE, FILL_THIS_IN) {
+qd2 <- function(x, probs=c(0,1), na.rm=FALSE, ...) {
     stopifnot(is.numeric(x))
     if (length(x) == 0) {
         warning("You inputted a length-0 x. Expecting length >=1. Returning NULL.")
         return(NULL)
     } 
-    qvec <- quantile(x, probs, na.rm = na.rm, FILL_THIS_IN)
+    qvec <- quantile(x, probs, na.rm = na.rm, ...)
     max(qvec) - min(qvec)
 }
+
+v <- rnorm(100)
+
+qd2(v,, probs = c(0,1), na.rm = TRUE, type=1)
 ```
