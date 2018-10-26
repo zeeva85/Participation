@@ -2,7 +2,7 @@
 title: "STAT 547 Class Meeting 02 Worksheet"
 output: html_notebook
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ```{r}
@@ -19,7 +19,7 @@ Today's lesson has been drawn from the following resources:
     - See the ["Resources" section](http://stat545.com/block028_character-data.html#resources) for a more comprehensive listing of resources based on the character problem you're facing. 
 2. [Older stat545 notes](http://stat545.com/block022_regular-expression.html)
 3. [r4ds: strings](https://r4ds.had.co.nz/strings.html).
-3. [`stringr` vignette](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
+4. [`stringr` vignette](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html)
 
 ## Basic String Manipulation
 
@@ -31,14 +31,14 @@ There's that famous sentence about the quick brown fox that contains all letters
 `str_subset(string, pattern)`
 
 ```{r}
-
-fox <- str_subset(sentences, pattern = "fox")
+(fox <- str_subset(sentences, pattern="fox"))
 ```
 
 Not quite the sentence I was thinking of. How many words does it contain? Use `str_split(string, pattern)`, noting its output (list).
 
 ```{r}
-str_split(fox, pattern = " ")
+str_split(fox, pattern=" ")[[1]] %>% length()
+str_split(sentences, pattern=" ") %>% head()
 ```
 
 Exercise: does this sentence contain all letters of the alphabet? Hints: 
@@ -49,11 +49,10 @@ Exercise: does this sentence contain all letters of the alphabet? Hints:
 
 ```{r}
 fox %>% 
-  str_split("") %>% 
-  `[[`(1) %>%
-  str_to_lower() %>% 
-  table()
-  
+    str_split("") %>% 
+    `[[`(1) %>% 
+    str_to_lower() %>% 
+    table()
 ```
 
 
@@ -69,7 +68,7 @@ Demo: we can substitute, too. Replace the word "fox" with "giraffe" using `str_r
 
 ```{r}
 fox %>% 
-    str_replace(pattern = "fox", replacement = "giraffe")
+    str_replace(pattern="fox", replacement="giraffe")
 ```
 
 Know the position you want to extract/replace? Try `str_sub()`.
@@ -95,8 +94,8 @@ length(fruit)
 
 ```{r}
 str_c(words[1:4], words[5:8], sep=" & ")
-str_c(words[3:4], words[5:8], sep=" & ") 
-str_c(words[3:4], words[5:8], sep=" & ", collapse=", ") 
+str_c(words[3:4], words[5:8], sep=" & ")
+str_c(words[3:4], words[5:8], sep=" & ", collapse=", ")
 ```
 
 There's a (more limited) `tidyr` version. Straight from Resource 1:
@@ -124,7 +123,7 @@ Let's make those folders!
 1. Make a character vector with entries `"01"`, `"02"`, ..., `12` with `str_pad()`.
 
 ```{r}
-(num <- str_pad(1:12, width = 2, side = "left", pad= "0"))
+(num <- str_pad(1:12, width=2, side="left", pad="0"))
 ```
 
 2. Use `str_c()` to combine `"/cm1"` with the numbers:
@@ -134,10 +133,10 @@ Let's make those folders!
 (folders <- str_c("/cm1", num))
 ```
 
-3. Use `testthat` to check that each entry of `folders` has 5 characters. You might find the base R `all()` function useful.
+3. Use `testthat` to check that each entry of `folders` has ~~5~~ 6 characters. You might find the base R `all()` function useful.
 
 ```{r}
-test_that("folder names are length 5.", {
+test_that("folder names are length 6.", {
     expect_true(all(str_length(folders) == 6))
 })
 ```
@@ -154,8 +153,7 @@ Now, let's seed the folders with README's.
 1. Add `/README.md` to the end of the folder names stored in `folders`:
 
 ```{r}
-files <- str_c(folders, "/README.md")
-files
+(files <- str_c(folders, "/README.md"))
 ```
 
 2. Make a vector of contents to put in each README. Put a title and body. 
@@ -193,7 +191,7 @@ countries <- levels(gapminder$country)
 Find all countries in the gapminder data set with the following pattern: "i", followed by any single character, followed by "a":
 
 ```{r}
-str_subset(countries, pattern = "i.a") 
+str_subset(countries, pattern = "i.a")
 ```
 
 Here, `.` stands for "any single character".
@@ -210,8 +208,8 @@ str_view_all(countries, pattern = "i.a", match=TRUE)
 Exercise: Canada isn't the only country with three interspersed "a"'s. Find the others. Try both `str_view_all()` and `str_subset()`.
 
 ```{r}
-str_view_all(countries, pattern = "a.a.a", match = TRUE)
-str_subset(countries, pattern = "a.a.a")
+str_view_all(countries, pattern=".a.a.a", match=TRUE)
+str_subset(countries, pattern=".a.a.a")
 ```
 
 
@@ -252,7 +250,7 @@ Note that not all special characters "work" within `[]`, but some do, and do not
 Exercise: Find all countries with three non-vowels next to each other.
 
 ```{r}
-str_view_all_match(countries, pattern = "[^aeiou][^aeiou][^aeiou]")
+str_view_all_match(countries, pattern = "[^aeiou ][^aeiou ][^aeiou ]")
 ```
 
 
@@ -297,10 +295,7 @@ str_view_all_match(countries, "e{2}")
 Exercise: Find all countries that have either "a" or "e", twice in a row (with a changeover allowed, such as "ae" or "ea"):
 
 ```{r}
-str_view_all_match(countries, pattern="(a|e)(a|e)")
 str_view_all_match(countries, pattern="(a|e){2}")
-
-
 ```
 
 
@@ -395,4 +390,54 @@ Find all countries that have either "oo" or "cc" in them.
 
 ```{r}
 str_view_all_match(countries, "YOUR_REGEX_HERE")
+```
+
+
+## Final Exercises: Solutions
+
+Convert `words` to pig latin, which involves:
+
+1. Make the first letter the last letter
+    - Get the first letter with `str_sub(string, start, end)`.
+2. Remove the first letter from `words`.
+    - Hint: leave the `end` argument blank.
+3. Add "ay" to the end of the word.
+    - Use `str_c()`.
+    
+```{r}
+first <- str_sub(words, 1, 1)
+ords <- str_sub(words, 2)
+str_c(ords, first, "ay") %>% head(10)
+```
+
+Find all countries that end in "y"
+
+```{r}
+str_view_all_match(countries, "y$")
+```
+
+Find all countries that have the same letter repeated twice (like "Greece", which has "ee").
+
+```{r}
+str_view_all_match(countries, "(.)\\1")
+```
+
+Find all countries that end in two vowels. 
+
+```{r}
+str_view_all_match(countries, "[aeiou]{2}$")
+```
+
+Find all countries that start with two non-vowels. How is this different from finding all countries that end in _at least_ two non-vowels? Hint: Syria.
+
+```{r}
+countries %>% 
+    str_to_lower() %>% 
+    str_view_all_match("^[^aeiou]{2,}")
+```
+
+Find all countries that have either "oo" or "cc" in them.
+
+```{r}
+str_view_all_match(countries, "(oo|cc)")
 ```
