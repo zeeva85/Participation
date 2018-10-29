@@ -145,6 +145,10 @@ test_that("folder names are length 6.", {
     - Note: `dir.create()` requires the full path to be specified. You might find the `here::here()` function useful.
     - This code might work (depending on your directory): `for (folder in folders) dir.create(here::here(folder))`
     - We'll learn how to use `purrr` instead of loops next week.
+```{r}
+# library(here)
+for (folder in folders) dir.create(here::here(folder))
+```
 
 ### Make README's
 
@@ -153,7 +157,8 @@ Now, let's seed the folders with README's.
 1. Add `/README.md` to the end of the folder names stored in `folders`:
 
 ```{r}
-(files <- str_c(folders, "/README.md"))
+(files <- str_c(here(folders), "/README.md"))
+# file.path(getwd(), files) only works on console
 ```
 
 2. Make a vector of contents to put in each README. Put a title and body. 
@@ -168,6 +173,11 @@ cat(contents[1])
     - `for (i in 1:length(files)) write(contents[i], files[i])`
     - There's a better alternative to a loop using `purrr`. Next week's topic!
     - This code might not work, depending on your workind directory and system.
+
+```{r}
+for (i in 1:length(files)) write(contents[i], files[i])
+```
+
 
 ## Regular Expressions (aka regex)
 
