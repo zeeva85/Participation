@@ -1,3 +1,3 @@
 # Participation
 
- Participation for class meeting 6
+ Participation for class meeting 06
