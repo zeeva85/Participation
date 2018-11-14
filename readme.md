@@ -28,6 +28,8 @@ The details of the repository operator.
 [cm011](https://github.com/zeeva85/STAT545A_participation/blob/master/cm011/cm011-exercise.Rmd) \| 
 [cm012](https://github.com/zeeva85/STAT545A_participation/blob/master/cm012/cm012.Rmd) \| 
 [cm013](https://github.com/zeeva85/STAT545A_participation/blob/master/cm013/cm013.Rmd) \|
+
+updating... 20%..
 ---
 
 
