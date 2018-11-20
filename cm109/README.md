@@ -1,3 +1,1 @@
-# Participation
-
- Participation for class meeting 9
+These automation demonstrations are taken from the [STAT545-UBC.github.io](https://github.com/STAT545-UBC/STAT545-UBC.github.io) repo; specifically the [automation10-holding_area](https://github.com/STAT545-UBC/STAT545-UBC.github.io/tree/master/automation10_holding-area) folder. 
