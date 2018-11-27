@@ -186,9 +186,9 @@ We've already seen `readr`, but what about importing other data types?
 - JSON, with the `jsonlite` package. Examples from the `fromJSON()` documentation:
 
 ```{r}
-fromJSON('{"city" : "Z\\u00FCrich"}') # A list
-fromJSON("https://api.github.com/users/hadley/orgs") %>% 
-	glimpse() # A data frame
+jsonlite::fromJSON('{"city" : "Z\\u00FCrich"}') # A list
+jsonlite::fromJSON("https://api.github.com/users/hadley/orgs") %>% 
+  glimpse() # A data frame
 toJSON(mtcars, pretty=TRUE)
 ```
 
