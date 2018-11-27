@@ -88,7 +88,7 @@ course[-1]
 Use `<-` to change the second entry to "545A". Using the same approach, add a third entry, "S01".
 
 ```{r}
-course[2] <- "545A
+course[2] <- "545A"
 course[3] <- "S01"
 course
 ```
