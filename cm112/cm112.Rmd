@@ -112,7 +112,9 @@ __OMDb Exercise__:
 2. Form a request!
 
 ```{r}
-s
+jsonlite::fromJSON("http://www.omdbapi.com/?t=Jurassic+park&apikey=97f895ef")
+# jsonlite::fromJSON("http://www.omdbapi.com/?t=Mission+impossible&apikey=97f895ef")
+
 ```
 
 
@@ -219,13 +221,17 @@ __Together__:
 2. Inspect its `str()`ucture, `class()`, and `names()`.
 
 ```{r}
-site <- GET("PUT_URL_HERE")
+site <- GET("https://api.github.com/users/hadley/orgs") # GET("www.neopets.com")
+str(site)
+names(site)
+class(site)
 ```
 
 3. What's the `$status_code`? How about the `$content`?
 
 ```{r}
-
+site$status_code
+# site$content
 ```
 
 4. Try the function versions: `status_code()` and `content()`. 
